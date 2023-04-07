@@ -1,7 +1,69 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
+import { Line } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.register(ChartDataLabels);
 function Detailed(props) {
   const [isCelsius, setIsCelsius] = useState(true); // State to keep track of temperature unit
+ 
+
+  function TemperatureChart() {
+    const data = {
+      labels: props.weatherData.days[props.dayDetailed].hours
+        .filter((hour, index) => index % 3 === 0)
+        .map((hour) => hour.datetime),
+      datasets: [
+        {
+          data: props.weatherData.days[props.dayDetailed].hours
+            .filter((hour, index) => index % 3 === 0)
+            .map((hour) => hour.temp),
+          //borderColor: "orange", // Change the line color to blue
+          //backgroundColor: "rgba(173,216,230,0.5)",
+         
+          
+        },
+      ],
+    };
+    
+    const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+        datalabels: {
+          display: true,
+          color: "black",
+          align: "top",
+          formatter: function(value, context) {
+            return `${value}°C`;
+          },
+        },
+        
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          display: false, // Hide the y-axis
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      borderColor: "orange",
+    };
+
+    
+  
+    return (
+      <div>
+        <Line data={data} options={options} />
+      </div>
+    );
+  }
+
 
   function getWeatherIcon(condition) {
     switch (condition) {
@@ -71,6 +133,7 @@ function Detailed(props) {
       </h1>
         <p style={{marginLeft: 5 }}><span style={celsiusStyle} onClick={handleClickC}>°C</span>|<span style={fahrenheitStyle} onClick={handleClickF}>°F</span></p>
       </div>
+      <TemperatureChart />
     </div>
   );
 }
