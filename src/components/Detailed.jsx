@@ -3,11 +3,27 @@ import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
+
 function Detailed(props) {
+
   const [isCelsius, setIsCelsius] = useState(true); // State to keep track of temperature unit
- 
+  const [chartType, setChartType] = useState("temp");
+
+  const temperatureFormatter = (value, context) => {
+    switch (chartType) {
+      case "temp":
+        return `${isCelsius ? value : Math.round((value * 9) / 5 + 32)}°${isCelsius ? "C" : "F"}`;
+      case "humidity":
+        return `${value}%`;
+      case "precipprob":
+        return `${value}%`;
+      default:
+        return value;
+    }
+  };
 
   function TemperatureChart() {
+    
     const data = {
       labels: props.weatherData.days[props.dayDetailed].hours
         .filter((hour, index) => index % 3 === 0)
@@ -16,11 +32,7 @@ function Detailed(props) {
         {
           data: props.weatherData.days[props.dayDetailed].hours
             .filter((hour, index) => index % 3 === 0)
-            .map((hour) => hour.temp),
-          //borderColor: "orange", // Change the line color to blue
-          //backgroundColor: "rgba(173,216,230,0.5)",
-         
-          
+            .map((hour) => hour[chartType]),
         },
       ],
     };
@@ -34,9 +46,7 @@ function Detailed(props) {
           display: true,
           color: "black",
           align: "top",
-          formatter: function(value, context) {
-            return `${value}°C`;
-          },
+          formatter: temperatureFormatter
         },
         
       },
@@ -119,6 +129,8 @@ function Detailed(props) {
 
   return (
     <div>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <div>
       <p style={{fontSize: '22px', marginBottom: 0}}>{city}</p>
       <p style={{marginBottom: 0, marginTop: 5}}>{dayOfWeek}</p>
       <p style={{marginBottom: 0, marginTop: 5}}>{props.weatherData.days[props.dayDetailed].conditions}</p>
@@ -132,6 +144,16 @@ function Detailed(props) {
             ) + "°F"}
       </h1>
         <p style={{marginLeft: 5 }}><span style={celsiusStyle} onClick={handleClickC}>°C</span>|<span style={fahrenheitStyle} onClick={handleClickF}>°F</span></p>
+      </div>
+      </div>
+      <div>
+         <p>Prob. of precipitation: {props.weatherData.days[props.dayDetailed].precipprob}%</p>
+         <p>Humidity: {props.weatherData.days[props.dayDetailed].precipprob}%</p>
+         <p>Wind: {props.weatherData.days[props.dayDetailed].windspeed}m/s</p>
+        <button style={{backgroundColor: chartType === "temp" ? "gray" : ""}} onClick={()=>setChartType("temp")}>Temperature</button>
+        <button style={{backgroundColor: chartType === "humidity" ? "gray" : ""}} onClick={()=>setChartType("humidity")}>Humidity</button>
+        <button style={{backgroundColor: chartType === "precipprob" ? "gray" : ""}} onClick={()=>setChartType("precipprob")}>Prob. of precipitation</button>
+      </div>
       </div>
       <TemperatureChart />
     </div>
