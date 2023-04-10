@@ -46,9 +46,17 @@ function Detailed(props) {
           display: true,
           color: "black",
           align: "top",
-          formatter: temperatureFormatter
+          formatter: temperatureFormatter,
+          font: {
+            size: 12 // set font size for values
+          }
         },
-        
+      },
+      layout: { // set padding for canvas
+        padding: {
+          top: 20,
+          
+        }
       },
       scales: {
         x: {
@@ -64,11 +72,10 @@ function Detailed(props) {
       maintainAspectRatio: false,
       borderColor: "orange",
     };
-
     
   
     return (
-      <div>
+      <div  style={{ padding: '20px' }}>
         <Line data={data} options={options} />
       </div>
     );
@@ -128,7 +135,7 @@ function Detailed(props) {
   const fahrenheitStyle = isCelsius ? { color: "blue" } : {};
 
   return (
-    <div>
+    <div style={{  width: "55%",  margin: "auto", marginTop: "15px" }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
     <div>
       <p style={{fontSize: '22px', marginBottom: 0}}>{city}</p>
