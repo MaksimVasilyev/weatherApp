@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BlockOfDays from './components/BlockOfDays'
 import Detailed from './components/Detailed'
-
-
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -21,9 +22,23 @@ function App() {
   if (!weatherData) {
     return <div>Loading...</div>;
   }
-
+  
+  function onClickRight() {
+    setFirstDay(prevFirstDay => prevFirstDay + 5);
+  }
+  function onClickLeft() {
+    setFirstDay(prevFirstDay => prevFirstDay -5);
+  }
+  const isLastPage = firstDay + 5 >= 15;
+  const isFirstPage = firstDay   <= 4;
   return (
     <>
+    <IconButton onClick={onClickLeft}   style ={{left: "250px", top: "220px"}}  aria-label="back" disabled={isFirstPage}>
+      <ArrowBackIosIcon />
+    </IconButton>
+    <IconButton onClick={onClickRight} style ={{left: "780px", top: "220px"}}  aria-label="back" disabled={isLastPage}>
+      <ArrowForwardIosIcon />
+    </IconButton>
       <BlockOfDays
         weatherData={weatherData}
         firstDay={firstDay}
