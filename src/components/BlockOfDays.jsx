@@ -54,6 +54,7 @@ function BlockOfDays(props) {
                  }
             style={{ marginRight: index === props.weatherData.days.length - 1 ? 0 : "15px" }}
             onDayClick={handleDayClick}
+            detailedDay={props.detailedDay}
           />
         ))}
     </div>

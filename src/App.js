@@ -48,6 +48,7 @@ function App() {
         weatherData={weatherData}
         firstDay={firstDay}
         onDayClick={updateDetailedDay}
+        detailedDay={detailedDay}
       />
       {detailedDay !== null && (
         <Detailed
