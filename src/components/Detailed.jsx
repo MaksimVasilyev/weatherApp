@@ -5,6 +5,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
 
 function Detailed(props) {
+  
 
   const [isCelsius, setIsCelsius] = useState(true); // State to keep track of temperature unit
   const [chartType, setChartType] = useState("temp");
@@ -21,7 +22,7 @@ function Detailed(props) {
         return value;
     }
   };
-
+ 
   function TemperatureChart() {
     
     const data = {
@@ -133,7 +134,7 @@ function Detailed(props) {
 
    const celsiusStyle = !isCelsius ? { color: "blue" } : {};
   const fahrenheitStyle = isCelsius ? { color: "blue" } : {};
-
+  
   return (
     <div style={{  width: "55%",  margin: "auto", marginTop: "15px" }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

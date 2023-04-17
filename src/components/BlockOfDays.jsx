@@ -30,16 +30,20 @@ function BlockOfDays(props) {
       default:
         return "unknown.png";
 
-        
-
     }
   }
 
+  function handleDayClick(index) {
+    props.onDayClick(index);
+  }
+  
+  
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "100px" }}>
       {props.weatherData &&
         props.weatherData.days.slice(props.firstDay, props.firstDay+5).map((day, index) => (
           <Dayshort
+            index={index+props.firstDay}
             key={index}
             day={`${day.datetime.split("-")[2]}.${day.datetime.split("-")[1]}`}
             img={`https://openweathermap.org/img/wn/${getWeatherIcon(day.icon)}@2x.png`}
@@ -49,6 +53,7 @@ function BlockOfDays(props) {
              </span>
                  }
             style={{ marginRight: index === props.weatherData.days.length - 1 ? 0 : "15px" }}
+            onDayClick={handleDayClick}
           />
         ))}
     </div>

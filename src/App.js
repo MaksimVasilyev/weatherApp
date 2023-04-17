@@ -22,6 +22,11 @@ function App() {
   if (!weatherData) {
     return <div>Loading...</div>;
   }
+
+  function updateDetailedDay(index) {
+   setDetailedDay(index);
+   //console.log(index);
+  }
   
   function onClickRight() {
     setFirstDay(prevFirstDay => prevFirstDay + 5);
@@ -42,11 +47,14 @@ function App() {
       <BlockOfDays
         weatherData={weatherData}
         firstDay={firstDay}
+        onDayClick={updateDetailedDay}
       />
-      <Detailed
-        weatherData={weatherData}
-        dayDetailed={detailedDay}
-      />
+      {detailedDay !== null && (
+        <Detailed
+          weatherData={weatherData}
+          dayDetailed={detailedDay}
+        />
+      )}
     </>
   );
 }

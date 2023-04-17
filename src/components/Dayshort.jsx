@@ -2,8 +2,12 @@ import React from "react";
 
 
 function Dayshort(props) {
+
+  function handleClick() {
+    props.onDayClick(props.index);
+  }
     return (
-  <div style={{ alignItems: "center" }} >
+    <div onClick={handleClick} style={{ alignItems: "center" }} >
     <p style={{ marginBottom: 0, textAlign: "center" }}>{props.day}</p>
     
     <img style={{ marginBottom: 0,  marginTop: 0 }} src={props.img} alt="Weather icon" />
@@ -12,5 +16,6 @@ function Dayshort(props) {
   </div>
     )
 }
+
 
 export default Dayshort;
