@@ -39,39 +39,46 @@ function Detailed(props) {
     };
     
     const options = {
+      scales: {
+        x: {
+          ticks: {
+            color: 'white',
+            font: {
+              family: 'Ubuntu, sans-serif',
+              size: 12
+            }
+          },
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          display: false
+        }
+      },
       plugins: {
         legend: {
-          display: false,
+          display: false
         },
         datalabels: {
           display: true,
-          color: "black",
-          align: "top",
+          color: 'white',
+          align: 'top',
           formatter: temperatureFormatter,
           font: {
-            size: 12 // set font size for values
+            family: 'Ubuntu, sans-serif',
+            size: 12
           }
-        },
-      },
-      layout: { // set padding for canvas
-        padding: {
-          top: 20,
-          
         }
       },
-      scales: {
-        x: {
-          grid: {
-            display: false,
-          },
-        },
-        y: {
-          display: false, // Hide the y-axis
-        },
+      layout: {
+        padding: {
+          top: 20
+        }
       },
       responsive: true,
       maintainAspectRatio: false,
-      borderColor: "orange",
+      borderColor: 'orange'
     };
     
   
@@ -132,11 +139,11 @@ function Detailed(props) {
     if (isCelsius)  setIsCelsius(false); 
    };
 
-   const celsiusStyle = !isCelsius ? { color: "blue" } : {};
-  const fahrenheitStyle = isCelsius ? { color: "blue" } : {};
+   const celsiusStyle = !isCelsius ? { color: "#82eefd", cursor: "pointer" } : {};
+  const fahrenheitStyle = isCelsius ? { color: "#82eefd", cursor: "pointer" } : {};
   
   return (
-    <div style={{  width: "55%",  margin: "auto", marginTop: "15px" }}>
+    <div className="detailed" style={{  width: "55%",  margin: "auto", marginTop: "15px" }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
     <div>
       <p style={{fontSize: '22px', marginBottom: 0}}>{city}</p>
@@ -158,9 +165,36 @@ function Detailed(props) {
          <p>Prob. of precipitation: {props.weatherData.days[props.dayDetailed].precipprob}%</p>
          <p>Humidity: {props.weatherData.days[props.dayDetailed].precipprob}%</p>
          <p>Wind: {props.weatherData.days[props.dayDetailed].windspeed}m/s</p>
-        <button style={{backgroundColor: chartType === "temp" ? "gray" : ""}} onClick={()=>setChartType("temp")}>Temperature</button>
-        <button style={{backgroundColor: chartType === "humidity" ? "gray" : ""}} onClick={()=>setChartType("humidity")}>Humidity</button>
-        <button style={{backgroundColor: chartType === "precipprob" ? "gray" : ""}} onClick={()=>setChartType("precipprob")}>Prob. of precipitation</button>
+         <button style={{ 
+          borderRadius: 5, 
+          color: 'white', 
+          border: '1px solid white', 
+          backgroundColor: chartType === "temp" ? "#82eefd" : "transparent",
+          height: '30px',
+          width: '80px',
+          marginRight: "3px"
+         }} 
+         onClick={()=>setChartType("temp")}>Temp.</button>
+         <button style={{ 
+          borderRadius: 5, 
+          color: 'white', 
+          border: '1px solid white', 
+          backgroundColor: chartType === "humidity" ? "#82eefd" : "transparent",
+          height: '30px',
+          width: '80px',
+          marginRight: "3px"
+         }} 
+         onClick={()=>setChartType("humidity")}>Humidity</button>
+         <button style={{ 
+          borderRadius: 5, 
+          color: 'white', 
+          border: '1px solid white', 
+          backgroundColor: chartType === "precipprob" ? "#82eefd" : "transparent",
+          height: '30px',
+          width: '80px'
+         }} 
+         onClick={()=>setChartType("precipprob")}>POP</button>
+        
       </div>
       </div>
       <TemperatureChart />

@@ -8,7 +8,11 @@ function Dayshort(props) {
     console.log(props.detailedDay, props.index);
   }
 
-  const frameStyle = props.index === props.detailedDay ? { border: "2px solid black" } : {};     
+  const frameStyle = props.index === props.detailedDay ? { 
+    border: "1px solid", 
+    borderRadius: "15px",
+    borderColor: "white",
+      } : {};  
     return (
     <div onClick={handleClick} style={{ alignItems: "center",  ...frameStyle}} >
     <p style={{ marginBottom: 0, textAlign: "center" }}>{props.day}</p>

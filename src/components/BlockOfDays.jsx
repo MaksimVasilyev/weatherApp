@@ -39,7 +39,7 @@ function BlockOfDays(props) {
   
   
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "100px" }}>
+    <div  style={{ display: "flex", justifyContent: "center", marginTop: "70px" }}>
       {props.weatherData &&
         props.weatherData.days.slice(props.firstDay, props.firstDay+5).map((day, index) => (
           <Dayshort
